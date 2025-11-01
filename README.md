@@ -1,157 +1,151 @@
+# 📈 Wage Prediction Using Spline Regression
+**Author:** Jai Acharya  
+
 ---
 
-# 📈 Wage Prediction Using Spline Regression
-# Author: Jai Acharya
-📋 **Table of Contents**
-
-1. 🤖 Introduction
-2. ⚙️ Tech Stack
-3. 🔬 Methodology
-4. 📊 Results
-5. 💡 Key Insights
-6. 🧠 Interpretation
-7. 🔋 Features & Highlights
-8. 🔗 Links & Resources
-9. 🚀 Future Improvements
-10. 🧾 Author
+## 📋 Table of Contents
+- 🤖 [Introduction](#-introduction)  
+- ⚙️ [Tech Stack](#-tech-stack)  
+- 🔬 [Methodology](#-methodology)  
+- 📊 [Results](#-results)  
+- 💡 [Key Insights](#-key-insights)  
+- 🧠 [Interpretation](#-interpretation)  
+- 🔋 [Features & Highlights](#-features--highlights)  
+- 🔗 [Links & Resources](#-links--resources)  
+- 🚀 [Future Improvements](#-future-improvements)  
+- 🧾 [Author](#-author)  
+- 🏁 [Summary](#-summary)  
 
 ---
 
 ## 🤖 Introduction
 
-**Wage Prediction Using Spline Regression** is a data science project focused on modeling the nonlinear relationship between **age** and **wage** using **spline regression techniques**.
+**Wage Prediction Using Spline Regression** is a data science project that models the **nonlinear relationship between age and wage** using spline regression techniques.  
 
-The goal is to demonstrate how flexible regression models (linear and cubic splines) can uncover meaningful trends beyond simple linear fits — while also proving mastery of model evaluation, bias–variance trade-offs, and generalization performance.
+The goal is to demonstrate how **flexible regression models** (linear and cubic splines) can uncover trends missed by standard linear models — while showcasing strong understanding of **bias–variance trade-offs**, **generalization**, and **statistical interpretation**.
 
-This project forms part of a broader portfolio showcasing **machine learning applications for economic and social data**. It highlights analytical rigor, reproducible workflow, and clear business interpretation.
+This work is part of a broader portfolio in **Data Science for Business Decision Making**, highlighting analytical rigor, reproducibility, and business-focused storytelling.
 
 ---
 
 ## ⚙️ Tech Stack
 
-* 🐍 **Python 3.10+**
-* 📦 **pandas** – Data handling and preprocessing
-* 📉 **statsmodels** – OLS regression and statistical diagnostics
-* 📊 **matplotlib** – Visualization and curve plotting
-* 🔢 **NumPy** – Numerical computation
-* 🧮 **Jupyter Notebook** – Interactive analysis environment
+- 🐍 **Python 3.10+**
+- 📦 **pandas** – Data handling & preprocessing  
+- 📉 **statsmodels** – OLS regression & statistical diagnostics  
+- 📊 **matplotlib** – Visualization & curve plotting  
+- 🔢 **NumPy** – Numerical computation  
+- 🧮 **Jupyter Notebook** – Interactive analysis environment  
 
 ---
 
 ## 🔬 Methodology
 
-**Objective:** Predict wages as a function of age, accounting for potential nonlinear effects.
+### 🎯 Objective  
+Predict individual wages as a function of **age**, capturing nonlinearities in the wage-age curve using **spline regression**.
 
-**Workflow Overview:**
+### 🧩 Workflow Overview
 
-1. **Data Preparation:**
+#### 1. Data Preparation
+- Loaded dataset: `wages.csv`
+- Split evenly into training (estimation) and testing (validation) subsets.
 
-   * Loaded and cleaned wage dataset (`wages.csv`).
-   * Split first 50% of rows for training and remaining 50% for testing (per assignment spec).
+#### 2. Model Construction
+- Implemented **Linear** and **Cubic Splines** manually using truncated power basis functions.
+- Evaluated two knot configurations:
+  - `[30, 60]`
+  - `[20, 30, 40, 50, 60]`
 
-2. **Model Construction:**
+#### 3. Model Fitting
+- Fitted all models using **OLS regression** (`statsmodels`).
+- Computed **R²**, **Adjusted R²**, and **Test MSE** to assess accuracy and generalization.
 
-   * Implemented **Linear** and **Cubic Spline** bases manually using truncated power functions.
-   * Evaluated two knot configurations:
-
-     * `[30, 60]`
-     * `[20, 30, 40, 50, 60]`
-
-3. **Model Fitting:**
-
-   * Used **OLS regression** via `statsmodels`.
-   * Estimated parameters, R², and computed **test MSE** for generalization.
-
-4. **Evaluation & Visualization:**
-
-   * Compared spline types and knot sets on both fit quality and predictive accuracy.
-   * Plotted fitted curves vs. real data for interpretability.
+#### 4. Evaluation & Visualization
+- Compared model performance and stability.
+- Plotted fitted spline curves against real wage data.
 
 ---
 
 ## 📊 Results
 
-| Knots            | Model Type    | Train R² | Test MSE    |
-| ---------------- | ------------- | -------- | ----------- |
-| [30, 60]         | Linear Spline | 0.0850   | **1553.81** |
-| [30, 60]         | Cubic Spline  | 0.0933   | 1566.27     |
-| [20,30,40,50,60] | Linear Spline | 0.0930   | 1557.83     |
-| [20,30,40,50,60] | Cubic Spline  | 0.0944   | 1563.20     |
+| Knots | Model Type | Train R² | Test MSE |
+|--------|-------------|-----------|-----------|
+| [30, 60] | Linear Spline | 0.0850 | **1553.81** |
+| [30, 60] | Cubic Spline | 0.0933 | 1566.27 |
+| [20, 30, 40, 50, 60] | Linear Spline | 0.0930 | 1557.83 |
+| [20, 30, 40, 50, 60] | Cubic Spline | 0.0944 | 1563.20 |
 
-✅ **Best model:** Linear spline with knots at `[30, 60]` (lowest test MSE).
+✅ **Best Model:** *Linear spline with knots at [30, 60]* — lowest test MSE and most stable performance.
 
 ---
 
 ## 💡 Key Insights
 
-* **Age explains <10% of wage variance** — clear evidence that wages depend more on experience, education, and occupation.
-* **Cubic splines don’t outperform linear splines** — more flexibility increased R² but worsened test error → classic overfitting.
-* **More knots ≠ better model** — finer grids added complexity with no predictive benefit.
-* **Linear spline with [30,60] knots** provides smooth, interpretable wage-age trends without overfitting.
+- Age explains **less than 10%** of wage variance → other socioeconomic factors dominate.
+- **Cubic splines** add flexibility but yield **no test improvement** → mild overfitting.
+- **More knots ≠ better accuracy** — unnecessary complexity increased instability.
+- **Linear spline (30, 60)** delivers the best trade-off between interpretability and fit.
 
 ---
 
 ## 🧠 Interpretation
 
-* Wage growth is **increasing with age** up to around 50, then plateaus — consistent with economic theory (human capital accumulation and diminishing returns).
-* The **best model’s RMSE ≈ 39.5** (wage units), meaning typical prediction error is about $39 relative to true wage values — large enough to prove **age alone is insufficient**.
-* The analysis reinforces that even statistically sound models can fail to explain social outcomes without richer contextual variables.
+- Wages **increase steadily** with age up to ~50, then **plateau**, consistent with labor economics (experience accumulation, diminishing returns).  
+- The model’s **RMSE ≈ 39.5** indicates that **age alone** cannot fully predict wage levels — additional variables like **education** and **job class** are crucial.  
+- The results show that even statistically robust methods can fail without **contextual, domain-relevant variables**.
 
 ---
 
 ## 🔋 Features & Highlights
 
-✅ Manual spline basis implementation (no prebuilt libraries)
-✅ Linear vs. Cubic spline comparison
-✅ Automated performance evaluation (R² & MSE)
-✅ Visual inspection of fitted curves vs real data
-✅ Clean separation of training and test data
-✅ Fully reproducible Jupyter notebook workflow
-✅ Professional README and GitHub structure
-✅ Business-context interpretation of results
+✅ Manual spline basis implementation (no auto libraries)  
+✅ Comparison of Linear vs. Cubic spline models  
+✅ Automated performance evaluation (R², MSE)  
+✅ Clean training/testing split for fair validation  
+✅ High-quality data visualizations with `matplotlib`  
+✅ Reproducible Jupyter Notebook workflow  
+✅ Professional documentation and structure  
+✅ Clear business interpretation of model behavior  
 
 ---
 
 ## 🔗 Links & Resources
 
-* 📘 **Notebook:** [`Spline Regression for Wage Prediction.ipynb`](Spline%20Regression%20for%20Wage%20Prediction.ipynb)
-* 📄 **Assignment Brief:** [`P2.pdf`](P2.pdf)
-* 📊 **Results & Plots:** [`spline_outputs/`](spline_outputs/)
-* 📚 **Key Libraries:**
+📘 **Notebook:** `Spline Regression for Wage Prediction.ipynb`  
+📄 **Assignment Brief:** `P2.pdf`  
+📊 **Results & Plots:** `/spline_outputs/`  
 
-  * [pandas Documentation](https://pandas.pydata.org/docs/)
-  * [statsmodels Documentation](https://www.statsmodels.org/stable/index.html)
-  * [Matplotlib Guide](https://matplotlib.org/stable/tutorials/index.html)
+**Key References:**
+- [pandas Documentation](https://pandas.pydata.org/docs/)  
+- [statsmodels Documentation](https://www.statsmodels.org/stable/index.html)  
+- [Matplotlib User Guide](https://matplotlib.org/stable/users/index.html)  
 
 ---
 
 ## 🚀 Future Improvements
 
-* Add **education**, **experience**, and **occupation** predictors for multivariate modeling.
-* Implement **B-splines** or **natural splines** for numerical stability.
-* Extend evaluation with **k-fold cross-validation**.
-* Benchmark against **tree-based models** (Random Forest, Gradient Boosting).
-* Deploy as a small **Streamlit app** for interactive visualization.
+- Add **education**, **experience**, and **occupation** variables for multivariate modeling.  
+- Explore **B-splines** or **natural splines** for numerical stability.  
+- Integrate **k-fold cross-validation** to validate generalization robustness.  
+- Benchmark against **tree-based regressors** (Random Forest, Gradient Boosting).  
+- Build an **interactive Streamlit app** for visual model exploration.  
 
 ---
 
 ## 🧾 Author
 
-👤 **Jai Acharya**
-📧 [[your.email@example.com](mailto:your.email@example.com)]
-💼 [LinkedIn Profile or Portfolio URL]
+👤 **Jai Acharya**  
+📧 [jacharya@email.sc.edu]  
+💼 [https://www.linkedin.com/in/jai-acharya/]  
 
 ---
 
-### 🏁 Summary
+## 🏁 Summary
 
-A technically robust and business-aware regression project demonstrating:
+A technically rigorous and business-aware regression analysis demonstrating:
 
-* Mastery of nonlinear regression and model validation.
-* Statistical reasoning tied to real-world interpretation.
-* Professional-level presentation ready for hiring managers or client review.
+- Mastery of nonlinear regression (splines) and model validation.  
+- Strong statistical reasoning and interpretable modeling.  
+- Professional communication and reproducible workflow.  
 
 > 🚀 *“In analytics, clarity is power — not just prediction.”*
-
----
-
